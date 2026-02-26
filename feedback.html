@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback — Power Fitness Gym</title>
+  <link rel="stylesheet" href="global.css"/>
+  <link rel="stylesheet" href="feedback.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">POWER<em>FITNESS GYM</em></span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.html" class="nav-item"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.html" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.html" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="feedback.html" class="nav-item active"><i data-lucide="message-square"></i><span>Feedback</span></a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="avatar">JD</div>
+        <div class="user-info"><span class="user-name">John Doe</span><span class="user-role">Admin</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <h1>Feedback</h1>
+        <p>Member reviews and satisfaction insights</p>
+      </div>
+      <div class="topbar__actions">
+        <div class="search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search feedback..."/>
+        </div>
+        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
+      </div>
+    </header>
+
+    <!-- Rating overview -->
+    <div class="fb-overview-grid">
+      <div class="card fb-rating-card">
+        <div class="fb-big-rating">4.6</div>
+        <div class="fb-stars-display">★★★★½</div>
+        <p class="fb-rating-sub">Based on 142 reviews</p>
+      </div>
+      <div class="card fb-breakdown-card">
+        <div class="card__header"><h2>Rating Breakdown</h2></div>
+        <div class="rating-bars">
+          <div class="rating-bar-row">
+            <span class="rb-label">5 ★</span>
+            <div class="rb-track"><div class="rb-fill" style="width:72%"></div></div>
+            <span class="rb-count">102</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="rb-label">4 ★</span>
+            <div class="rb-track"><div class="rb-fill" style="width:18%"></div></div>
+            <span class="rb-count">26</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="rb-label">3 ★</span>
+            <div class="rb-track"><div class="rb-fill rb-fill--mid" style="width:6%"></div></div>
+            <span class="rb-count">8</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="rb-label">2 ★</span>
+            <div class="rb-track"><div class="rb-fill rb-fill--low" style="width:3%"></div></div>
+            <span class="rb-count">4</span>
+          </div>
+          <div class="rating-bar-row">
+            <span class="rb-label">1 ★</span>
+            <div class="rb-track"><div class="rb-fill rb-fill--low" style="width:1%"></div></div>
+            <span class="rb-count">2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback content -->
+    <div class="fb-grid">
+
+      <!-- Recent Feedback -->
+      <div class="card fb-recent-card">
+        <div class="card__header">
+          <h2>Recent Feedback</h2>
+          <span class="chip">New</span>
+        </div>
+
+        <div class="fb-list">
+
+          <div class="fb-item fb-item--featured">
+            <div class="fb-item__head">
+              <div class="fb-avatar">MC</div>
+              <div>
+                <p class="fb-name">Marcy Cannon</p>
+                <p class="fb-location">Johannesburg, RSA</p>
+              </div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+            <p class="fb-text">
+              "I've really enjoyed my experience at this gym. The equipment is well-maintained, the staff is friendly and always ready to help. I've noticed real progress in my fitness. One suggestion would be to add more group classes — they tend to fill up quickly. Overall, I'm very satisfied and would definitely recommend this gym to others!"
+            </p>
+          </div>
+
+          <div class="fb-item">
+            <div class="fb-item__head">
+              <div class="fb-avatar">JT</div>
+              <div>
+                <p class="fb-name">James Torres</p>
+                <p class="fb-location">Davao City, PH</p>
+              </div>
+              <div class="fb-stars">★★★★☆</div>
+            </div>
+            <p class="fb-text">"Clean facilities &amp; friendly staff. Love the vibe here!"</p>
+          </div>
+
+          <div class="fb-item">
+            <div class="fb-item__head">
+              <div class="fb-avatar">SL</div>
+              <div>
+                <p class="fb-name">Sofia Lim</p>
+                <p class="fb-location">Cebu City, PH</p>
+              </div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+            <p class="fb-text">"Great equipment, but more classes please!"</p>
+          </div>
+
+          <div class="fb-item">
+            <div class="fb-item__head">
+              <div class="fb-avatar">RC</div>
+              <div>
+                <p class="fb-name">Ray Cruz</p>
+                <p class="fb-location">Toril, Davao</p>
+              </div>
+              <div class="fb-stars">★★★★★</div>
+            </div>
+            <p class="fb-text">"Loving progress &amp; loving the gym. Coaches are top notch!"</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Previous Feedback -->
+      <div class="card fb-prev-card">
+        <div class="card__header">
+          <h2>Previous Feedback</h2>
+        </div>
+        <div class="fb-prev-list">
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★★☆</div>
+              <span class="fp-date">Nov 15, 2025</span>
+            </div>
+            <p class="fp-text">"Loving Progress &amp; Loving the Gym"</p>
+            <p class="fp-author">— A. Reyes</p>
+          </div>
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★★★</div>
+              <span class="fp-date">Oct 30, 2025</span>
+            </div>
+            <p class="fp-text">"Great Equipment, But More Classes Please"</p>
+            <p class="fp-author">— B. Santos</p>
+          </div>
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★☆☆</div>
+              <span class="fp-date">Oct 12, 2025</span>
+            </div>
+            <p class="fp-text">"Clean Facilities, But More Classes Please"</p>
+            <p class="fp-author">— C. Dela Cruz</p>
+          </div>
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★★★</div>
+              <span class="fp-date">Sep 28, 2025</span>
+            </div>
+            <p class="fp-text">"Best gym in the city, hands down!"</p>
+            <p class="fp-author">— D. Lim</p>
+          </div>
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★★☆</div>
+              <span class="fp-date">Sep 10, 2025</span>
+            </div>
+            <p class="fp-text">"Good trainers, very helpful and motivating."</p>
+            <p class="fp-author">— E. Mendoza</p>
+          </div>
+          <div class="fb-prev-item">
+            <div class="fp-head">
+              <div class="fb-stars-sm">★★★★★</div>
+              <span class="fp-date">Aug 25, 2025</span>
+            </div>
+            <p class="fp-text">"Joined 3 months ago, already seeing great results!"</p>
+            <p class="fp-author">— F. Garcia</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fb-grid -->
+  </main>
+
+</body>
+</html>

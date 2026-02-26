@@ -1,0 +1,125 @@
+/* ============================================================
+   ATTENDANCE — Page Styles
+   ============================================================ */
+
+.att-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Scan card */
+.scan-card { gap: 18px; }
+
+.scan-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.scan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all var(--transition);
+}
+.scan-btn i { width: 15px; height: 15px; }
+.scan-btn:hover { border-color: var(--accent); color: var(--accent); }
+.scan-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d0d0d;
+}
+
+/* QR frame */
+.qr-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.qr-frame {
+  width: 180px;
+  height: 180px;
+  background: #111;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.qr-svg { width: 130px; height: 130px; }
+.scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: scanMove 2s ease-in-out infinite;
+  opacity: 0.8;
+}
+@keyframes scanMove {
+  0%   { top: 10%; }
+  50%  { top: 85%; }
+  100% { top: 10%; }
+}
+
+.scan-hint {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ID area */
+.id-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.id-input { font-size: 16px; letter-spacing: 2px; text-align: center; }
+
+/* Hidden utility */
+.hidden { display: none !important; }
+
+/* Check-in toast */
+.checkin-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1a2a08, #191919);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
+}
+.checkin-toast i { width: 16px; height: 16px; }
+.checkin-toast.show { opacity: 1; transform: translateY(0); }
+
+/* Attendance stats */
+.att-stats { display: flex; align-items: center; gap: 6px; }
+.att-count {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--accent);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .att-grid { grid-template-columns: 1fr; }
+  .qr-frame { width: 160px; height: 160px; }
+}

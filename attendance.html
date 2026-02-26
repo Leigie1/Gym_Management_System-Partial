@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance — Power Fitness Gym</title>
+  <link rel="stylesheet" href="global.css"/>
+  <link rel="stylesheet" href="attendance.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">POWER<em>FITNESS GYM</em></span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.html" class="nav-item active"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.html" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.html" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="feedback.html" class="nav-item"><i data-lucide="message-square"></i><span>Feedback</span></a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="avatar">JD</div>
+        <div class="user-info"><span class="user-name">John Doe</span><span class="user-role">Admin</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <h1>Attendance</h1>
+        <p>Track member check-ins in real time</p>
+      </div>
+      <div class="topbar__actions">
+        <div class="search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search members..."/>
+        </div>
+        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
+      </div>
+    </header>
+
+    <div class="att-grid">
+
+      <!-- SCAN PANEL -->
+      <div class="card scan-card">
+        <div class="card__header">
+          <h2>Check In</h2>
+          <span class="chip">Live</span>
+        </div>
+
+        <div class="scan-methods">
+          <button class="scan-btn active" id="btnQR">
+            <i data-lucide="qr-code"></i>
+            Scan QR
+          </button>
+          <button class="scan-btn" id="btnID">
+            <i data-lucide="keyboard"></i>
+            Enter ID
+          </button>
+        </div>
+
+        <!-- QR Scanner Placeholder -->
+        <div class="qr-area" id="qrArea">
+          <div class="qr-frame">
+            <svg viewBox="0 0 120 120" class="qr-svg">
+              <rect x="10" y="10" width="30" height="30" rx="4" fill="none" stroke="#c8f53a" stroke-width="3"/>
+              <rect x="80" y="10" width="30" height="30" rx="4" fill="none" stroke="#c8f53a" stroke-width="3"/>
+              <rect x="10" y="80" width="30" height="30" rx="4" fill="none" stroke="#c8f53a" stroke-width="3"/>
+              <rect x="17" y="17" width="16" height="16" rx="2" fill="#c8f53a"/>
+              <rect x="87" y="17" width="16" height="16" rx="2" fill="#c8f53a"/>
+              <rect x="17" y="87" width="16" height="16" rx="2" fill="#c8f53a"/>
+              <rect x="50" y="10" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="10" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="18" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="26" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="34" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="42" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="66" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="74" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="58" width="5" height="5" fill="#c8f53a"/>
+              <rect x="66" y="58" width="5" height="5" fill="#c8f53a"/>
+              <rect x="74" y="58" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="66" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="66" width="5" height="5" fill="#c8f53a"/>
+              <rect x="66" y="74" width="5" height="5" fill="#c8f53a"/>
+              <rect x="74" y="74" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="82" width="5" height="5" fill="#c8f53a"/>
+              <rect x="50" y="90" width="5" height="5" fill="#c8f53a"/>
+              <rect x="58" y="90" width="5" height="5" fill="#c8f53a"/>
+              <rect x="66" y="90" width="5" height="5" fill="#c8f53a"/>
+              <rect x="74" y="90" width="5" height="5" fill="#c8f53a"/>
+              <rect x="82" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="90" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="98" y="50" width="5" height="5" fill="#c8f53a"/>
+              <rect x="82" y="58" width="5" height="5" fill="#c8f53a"/>
+              <rect x="90" y="66" width="5" height="5" fill="#c8f53a"/>
+              <rect x="98" y="66" width="5" height="5" fill="#c8f53a"/>
+              <rect x="82" y="74" width="5" height="5" fill="#c8f53a"/>
+              <rect x="90" y="82" width="5" height="5" fill="#c8f53a"/>
+              <rect x="98" y="82" width="5" height="5" fill="#c8f53a"/>
+            </svg>
+            <div class="scan-line"></div>
+          </div>
+          <p class="scan-hint">Position the QR code within the frame</p>
+        </div>
+
+        <!-- ID Entry (hidden by default) -->
+        <div class="id-area hidden" id="idArea">
+          <div class="form-group">
+            <label>Member ID</label>
+            <input type="text" class="form-control id-input" placeholder="Enter Member ID..."/>
+          </div>
+          <button class="btn btn--primary" style="width:100%;justify-content:center;" onclick="simulateCheckin()">
+            <i data-lucide="log-in"></i> Check In
+          </button>
+        </div>
+
+        <!-- Success toast -->
+        <div class="checkin-toast hidden" id="checkinToast">
+          <i data-lucide="check-circle-2"></i>
+          <span>Check-in Successful!</span>
+        </div>
+      </div>
+
+      <!-- ATTENDANCE TABLE -->
+      <div class="card att-table-card">
+        <div class="card__header">
+          <h2>Today's Attendance</h2>
+          <div class="att-stats">
+            <span class="att-count" id="attCount">6</span>
+            <span style="color:var(--text-muted);font-size:12px;">checked in</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Date &amp; Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="attTableBody">
+              <tr>
+                <td>James Carter</td>
+                <td>Toril, Davao City</td>
+                <td>2025-09-03 &nbsp; 8:02 AM</td>
+                <td><span class="status status--active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Diva Mucson</td>
+                <td>Baliok, Davao City</td>
+                <td>2025-09-01 &nbsp; 8:14 AM</td>
+                <td><span class="status status--expired">Expired</span></td>
+              </tr>
+              <tr>
+                <td>Dina Bautista</td>
+                <td>Crossing, Davao</td>
+                <td>2025-09-03 &nbsp; 10:00 AM</td>
+                <td><span class="status status--active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Isabelle Diaz</td>
+                <td>Kinuskusan, Davao</td>
+                <td>2025-09-03 &nbsp; 10:32 AM</td>
+                <td><span class="status status--active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Rux Mendez</td>
+                <td>Maa, Davao City</td>
+                <td>2025-09-03 &nbsp; 11:48 AM</td>
+                <td><span class="status status--active">Active</span></td>
+              </tr>
+              <tr>
+                <td>Gain Aquino</td>
+                <td>Lungsod, Davao</td>
+                <td>2025-09-03 &nbsp; 4:50 PM</td>
+                <td><span class="status status--expired">Expired</span></td>
+              </tr>
+              <tr>
+                <td>Shanice Montony</td>
+                <td>Toril, Davao City</td>
+                <td>2025-09-03 &nbsp; 7:00 PM</td>
+                <td><span class="status status--active">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /att-grid -->
+  </main>
+
+  <script>
+    lucide.createIcons && document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());
+
+    const btnQR   = document.getElementById('btnQR');
+    const btnID   = document.getElementById('btnID');
+    const qrArea  = document.getElementById('qrArea');
+    const idArea  = document.getElementById('idArea');
+
+    btnQR.addEventListener('click', () => {
+      btnQR.classList.add('active'); btnID.classList.remove('active');
+      qrArea.classList.remove('hidden'); idArea.classList.add('hidden');
+    });
+    btnID.addEventListener('click', () => {
+      btnID.classList.add('active'); btnQR.classList.remove('active');
+      idArea.classList.remove('hidden'); qrArea.classList.add('hidden');
+    });
+
+    function simulateCheckin() {
+      const toast = document.getElementById('checkinToast');
+      toast.classList.remove('hidden'); toast.classList.add('show');
+      setTimeout(()=>{ toast.classList.remove('show'); setTimeout(()=>toast.classList.add('hidden'),400); }, 2800);
+    }
+  </script>
+</body>
+</html>

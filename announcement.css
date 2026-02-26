@@ -1,0 +1,150 @@
+/* ============================================================
+   ANNOUNCEMENT — Page Styles
+   ============================================================ */
+
+.ann-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Compose card */
+.compose-card { gap: 14px; position: relative; }
+
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.date-sep {
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.publish-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+}
+
+/* Announcement toast */
+.ann-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #1a2a08, #191919);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 11px 16px;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.35s ease;
+}
+.ann-toast i { width: 15px; height: 15px; }
+.ann-toast.show { opacity: 1; transform: translateY(0); }
+.ann-toast.hidden { display: none; }
+
+/* Right column */
+.ann-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Featured active announcement */
+.ann-featured {
+  background: linear-gradient(135deg, #1a2a08 0%, #191919 100%);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ann-featured__header { display: flex; align-items: center; justify-content: space-between; }
+.ann-tag {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.ann-tag--important { background: rgba(200,245,58,0.2); color: var(--accent); }
+.ann-tag--event     { background: rgba(96,179,245,0.15); color: #60b3f5; }
+.ann-tag--promo     { background: rgba(245,166,35,0.15); color: var(--status-pending); }
+.ann-date { font-size: 11px; color: var(--text-muted); }
+
+.ann-featured-title { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+.ann-featured-body  { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.ann-featured-reopen { font-size: 12px; color: var(--text-secondary); }
+.ann-featured-thanks { font-size: 12px; color: var(--accent); }
+
+/* Previous announcements list */
+.prev-ann-card { gap: 12px; }
+.prev-ann-list { display: flex; flex-direction: column; gap: 1px; }
+
+.prev-ann-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+  position: relative;
+}
+.prev-ann-item:hover { background: var(--bg-card-hover); }
+.prev-ann-item.new-item { background: var(--accent-bg); }
+
+.prev-ann-icon {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  border: 1px solid rgba(200,245,58,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.prev-ann-icon i { width: 14px; height: 14px; }
+.prev-ann-icon.ann-icon--event {
+  background: rgba(96,179,245,0.1);
+  border-color: rgba(96,179,245,0.3);
+  color: #60b3f5;
+}
+.prev-ann-icon.ann-icon--promo {
+  background: rgba(245,166,35,0.1);
+  border-color: rgba(245,166,35,0.3);
+  color: var(--status-pending);
+}
+
+.prev-ann-body { flex: 1; min-width: 0; }
+.prev-ann-title { font-size: 13px; color: var(--text-primary); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.prev-ann-meta  { font-size: 11px; color: var(--text-muted); }
+
+.prev-ann-del {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  background: none;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  transition: all var(--transition);
+  flex-shrink: 0;
+  opacity: 0;
+}
+.prev-ann-item:hover .prev-ann-del { opacity: 1; }
+.prev-ann-del:hover { border-color: var(--status-expired); color: var(--status-expired); background: rgba(255,77,77,0.1); }
+.prev-ann-del i { width: 13px; height: 13px; }
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .ann-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .date-range { flex-direction: column; }
+  .date-sep { display: none; }
+}

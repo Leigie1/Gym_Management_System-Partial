@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment — Power Fitness Gym</title>
+  <link rel="stylesheet" href="global.css"/>
+  <link rel="stylesheet" href="payment.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">POWER<em>FITNESS GYM</em></span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.html" class="nav-item"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.html" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.html" class="nav-item active"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="feedback.html" class="nav-item"><i data-lucide="message-square"></i><span>Feedback</span></a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="avatar">JD</div>
+        <div class="user-info"><span class="user-name">John Doe</span><span class="user-role">Admin</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar__title">
+        <h1>Payment</h1>
+        <p>Process and track member payments</p>
+      </div>
+      <div class="topbar__actions">
+        <div class="search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search member..."/>
+        </div>
+        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
+      </div>
+    </header>
+
+    <div class="pay-grid">
+
+      <!-- TRANSACTION FORM -->
+      <div class="card pay-form-card">
+        <div class="card__header">
+          <h2>New Transaction</h2>
+        </div>
+
+        <!-- Member select -->
+        <div class="form-group">
+          <label>Select Member</label>
+          <select class="form-control" onchange="updateMemberInfo(this)">
+            <option value="">-- Select Member --</option>
+            <option>James Carter</option>
+            <option>Elton Mucson</option>
+            <option>Daniel Cruz</option>
+            <option>Ellisa Cana</option>
+            <option>Isabella Cruz</option>
+          </select>
+        </div>
+
+        <!-- Transaction -->
+        <div class="form-group">
+          <label>Category</label>
+          <select class="form-control">
+            <option>Membership</option>
+            <option>Supplements</option>
+            <option>Merchandise</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" class="form-control" value="1" min="1"/>
+          </div>
+          <div class="form-group">
+            <label>Amount (₱)</label>
+            <input type="number" class="form-control" id="payAmount" placeholder="0.00"/>
+          </div>
+        </div>
+
+        <!-- Payment method -->
+        <div class="pay-method-label">Select Payment Method</div>
+        <div class="pay-methods">
+          <button class="pay-method-btn active" onclick="selectMethod(this,'gcash')">
+            <span class="pay-icon pay-icon--gcash">G</span>
+            GCash
+          </button>
+          <button class="pay-method-btn" onclick="selectMethod(this,'cash')">
+            <i data-lucide="banknote"></i>
+            Cash
+          </button>
+        </div>
+
+        <!-- GCash QR (shown when GCash selected) -->
+        <div class="gcash-qr" id="gcashQR">
+          <p class="qr-label">Scan QR Code</p>
+          <div class="qr-frame-sm">
+            <svg viewBox="0 0 80 80" width="120" height="120">
+              <rect x="5"  y="5"  width="22" height="22" rx="3" fill="none" stroke="#c8f53a" stroke-width="2"/>
+              <rect x="53" y="5"  width="22" height="22" rx="3" fill="none" stroke="#c8f53a" stroke-width="2"/>
+              <rect x="5"  y="53" width="22" height="22" rx="3" fill="none" stroke="#c8f53a" stroke-width="2"/>
+              <rect x="10" y="10" width="12" height="12" rx="1" fill="#c8f53a"/>
+              <rect x="58" y="10" width="12" height="12" rx="1" fill="#c8f53a"/>
+              <rect x="10" y="58" width="12" height="12" rx="1" fill="#c8f53a"/>
+              <rect x="34" y="5"  width="4" height="4" fill="#c8f53a"/>
+              <rect x="40" y="11" width="4" height="4" fill="#c8f53a"/>
+              <rect x="34" y="17" width="4" height="4" fill="#c8f53a"/>
+              <rect x="34" y="34" width="4" height="4" fill="#c8f53a"/>
+              <rect x="40" y="40" width="4" height="4" fill="#c8f53a"/>
+              <rect x="46" y="34" width="4" height="4" fill="#c8f53a"/>
+              <rect x="52" y="40" width="4" height="4" fill="#c8f53a"/>
+              <rect x="58" y="34" width="4" height="4" fill="#c8f53a"/>
+              <rect x="64" y="40" width="4" height="4" fill="#c8f53a"/>
+              <rect x="34" y="52" width="4" height="4" fill="#c8f53a"/>
+              <rect x="46" y="58" width="4" height="4" fill="#c8f53a"/>
+              <rect x="58" y="52" width="4" height="4" fill="#c8f53a"/>
+              <rect x="64" y="64" width="4" height="4" fill="#c8f53a"/>
+            </svg>
+          </div>
+          <p class="qr-acct">John Power Cashless</p>
+          <p class="qr-num">09121258969</p>
+        </div>
+
+        <button class="btn btn--primary pay-submit-btn" onclick="makePayment()">
+          <i data-lucide="check-circle"></i>
+          Make Payment
+        </button>
+      </div>
+
+      <!-- TRANSACTION HISTORY -->
+      <div class="card pay-history-card">
+        <div class="card__header">
+          <h2>Transaction History</h2>
+          <div class="pay-totals">
+            <span class="pay-total-label">Total</span>
+            <span class="pay-total-val">₱ 84,500</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Member</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Inventory</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>James Carter</td>
+                <td>2025-09-03</td>
+                <td>Membership</td>
+                <td>₱ 700</td>
+                <td>Membership</td>
+                <td><span class="status status--active">Paid</span></td>
+              </tr>
+              <tr>
+                <td>Elton Mucson</td>
+                <td>2025-09-01</td>
+                <td>Supplements</td>
+                <td>₱ 708</td>
+                <td>Supplements</td>
+                <td><span class="status status--active">Paid</span></td>
+              </tr>
+              <tr>
+                <td>Daniel Cruz</td>
+                <td>2025-04-02</td>
+                <td>Membership</td>
+                <td>₱ 700</td>
+                <td>Membership</td>
+                <td><span class="status status--pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Ellisa Cana</td>
+                <td>2025-06-01</td>
+                <td>Merchandise</td>
+                <td>₱ 808</td>
+                <td>Merchandise</td>
+                <td><span class="status status--active">Paid</span></td>
+              </tr>
+              <tr>
+                <td>Isabella Cruz</td>
+                <td>2020-04-03</td>
+                <td>Membership</td>
+                <td>₱ 506</td>
+                <td>Membership</td>
+                <td><span class="status status--expired">Unpaid</span></td>
+              </tr>
+              <tr>
+                <td>Lara Mendez</td>
+                <td>2025-05-02</td>
+                <td>Membership</td>
+                <td>₱ 700</td>
+                <td>Membership</td>
+                <td><span class="status status--active">Paid</span></td>
+              </tr>
+              <tr>
+                <td>John Espinosa</td>
+                <td>2025-06-02</td>
+                <td>Supplements</td>
+                <td>₱ 308</td>
+                <td>Supplements</td>
+                <td><span class="status status--expired">Unpaid</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /pay-grid -->
+
+    <!-- PAYMENT SUCCESS MODAL -->
+    <div class="modal-overlay hidden" id="successModal">
+      <div class="modal pay-success-modal">
+        <div class="pay-success-icon"><i data-lucide="check-circle-2"></i></div>
+        <h3>Payment Successful!</h3>
+        <div class="pay-receipt">
+          <div class="receipt-row"><span>Member</span><span id="rMember">James Carter</span></div>
+          <div class="receipt-row"><span>Amount Paid</span><span id="rAmount">₱ 700</span></div>
+          <div class="receipt-row"><span>Method</span><span id="rMethod">Cash</span></div>
+          <div class="receipt-row"><span>Date</span><span id="rDate">—</span></div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn--outline" style="flex:1;justify-content:center;" onclick="closeModal()">Close</button>
+          <button class="btn btn--primary" style="flex:1;justify-content:center;" onclick="printReceipt()">
+            <i data-lucide="printer"></i> Print Receipt
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let activeMethod = 'gcash';
+
+    function selectMethod(btn, method) {
+      document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeMethod = method;
+      document.getElementById('gcashQR').style.display = method === 'gcash' ? 'flex' : 'none';
+    }
+
+    function makePayment() {
+      const amount = document.getElementById('payAmount').value || '700';
+      document.getElementById('rAmount').textContent = '₱ ' + amount;
+      document.getElementById('rMethod').textContent = activeMethod === 'gcash' ? 'GCash' : 'Cash';
+      document.getElementById('rDate').textContent = new Date().toLocaleDateString();
+      document.getElementById('successModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeModal() {
+      document.getElementById('successModal').classList.add('hidden');
+    }
+
+    function printReceipt() {
+      alert('Printing receipt...');
+      closeModal();
+    }
+  </script>
+</body>
+</html>

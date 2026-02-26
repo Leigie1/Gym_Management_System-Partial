@@ -1,0 +1,124 @@
+/* ============================================================
+   MEMBER STATUS — Page Styles
+   ============================================================ */
+
+.ms-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* List card */
+.ms-list-card { gap: 14px; }
+
+.ms-filter-wrap select { padding: 5px 10px; }
+
+.clickable-row { cursor: pointer; }
+.clickable-row.selected { background: var(--accent-bg) !important; }
+.clickable-row.selected td:first-child { color: var(--accent); }
+
+/* Remove toast */
+.ms-remove-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--status-expired);
+  background: rgba(255,77,77,0.1);
+  border: 1px solid rgba(255,77,77,0.3);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ms-remove-toast.hidden { display: none; }
+.ms-remove-toast i { width: 15px; height: 15px; }
+
+/* Profile panel */
+.ms-profile-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  opacity: 0.3;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.ms-profile-panel.visible { opacity: 1; pointer-events: auto; }
+
+/* Profile card */
+.profile-body {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.profile-avatar-lg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  color: #0d0d0d;
+  font-family: var(--font-display);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.profile-details { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.profile-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.profile-field { display: flex; flex-direction: column; gap: 2px; }
+.pf-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
+.pf-val { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+
+/* Membership card display */
+.mem-card {
+  background: linear-gradient(135deg, #1a2810 0%, #0d1a08 100%);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+}
+.mem-card__left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mem-card__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.mem-logo { display: flex; align-items: center; gap: 6px; }
+.mem-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent-bg2);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.mem-field-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
+.mem-field-val { font-size: 13px; color: var(--text-primary); font-weight: 600; }
+.qr-placeholder {
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid rgba(200,245,58,0.2);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .ms-grid { grid-template-columns: 1fr; }
+  .ms-profile-panel { opacity: 1; pointer-events: auto; }
+  .profile-body { flex-direction: column; }
+}
+@media (max-width: 600px) {
+  .profile-row { grid-template-columns: 1fr; }
+  .mem-card { flex-direction: column; }
+}

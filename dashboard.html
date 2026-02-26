@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Power Fitness Gym</title>
+  <link rel="stylesheet" href="global.css"/>
+  <link rel="stylesheet" href="dashboard.css"/>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <span class="logo-dot"></span>
+      <span class="logo-text">POWER<em>FITNESS GYM</em></span>
+    </div>
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="nav-item active"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.html" class="nav-item"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.html" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.html" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="feedback.html" class="nav-item"><i data-lucide="message-square"></i><span>Feedback</span></a>
+    </nav>
+    <div class="sidebar__footer">
+      <div class="sidebar__user">
+        <div class="avatar">JD</div>
+        <div class="user-info"><span class="user-name">John Doe</span><span class="user-role">Admin</span></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar__title">
+        <h1>Dashboard</h1>
+        <p>Welcome back, John Doe</p>
+      </div>
+      <div class="topbar__actions">
+        <div class="search-bar">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="Search..."/>
+        </div>
+        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
+      </div>
+    </header>
+
+    <!-- STATS -->
+    <section class="stats-grid">
+      <div class="stat-card stat-card--green">
+        <div class="stat-card__icon"><i data-lucide="users"></i></div>
+        <div class="stat-card__body">
+          <span class="stat-value">1,234</span>
+          <span class="stat-label">Total Members</span>
+        </div>
+        <span class="stat-tag">+12% this month</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon"><i data-lucide="credit-card"></i></div>
+        <div class="stat-card__body">
+          <span class="stat-value">₱ 84,500</span>
+          <span class="stat-label">Monthly Revenue</span>
+        </div>
+        <span class="stat-tag">+8% this month</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon"><i data-lucide="scan-line"></i></div>
+        <div class="stat-card__body">
+          <span class="stat-value">312</span>
+          <span class="stat-label">Attendance Today</span>
+        </div>
+        <span class="stat-tag">Active check-ins</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__icon"><i data-lucide="alert-triangle"></i></div>
+        <div class="stat-card__body">
+          <span class="stat-value">12</span>
+          <span class="stat-label">Expiry Alerts</span>
+        </div>
+        <span class="stat-tag stat-tag--warn">Needs attention</span>
+      </div>
+    </section>
+
+    <!-- MIDDLE ROW -->
+    <section class="mid-grid">
+
+      <!-- Quick Actions -->
+      <div class="card quick-actions">
+        <div class="card__header"><h2>Quick Actions</h2></div>
+        <div class="actions-list">
+          <a href="manage-member.html" class="action-btn action-btn--primary"><i data-lucide="user-plus"></i>Add Member</a>
+          <a href="payment.html" class="action-btn"><i data-lucide="credit-card"></i>Process Payment</a>
+          <a href="inventory.html" class="action-btn"><i data-lucide="package"></i>View Inventory</a>
+          <a href="attendance.html" class="action-btn"><i data-lucide="qr-code"></i>Scan QR</a>
+          <a href="member-status.html" class="action-btn"><i data-lucide="shield-check"></i>Member Status</a>
+        </div>
+      </div>
+
+      <!-- Attendance -->
+      <div class="card attendance-card">
+        <div class="card__header">
+          <h2>Attendance Today</h2>
+          <span class="chip">Live</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Member</th><th>Time In</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>James Carter</td><td>8:02 AM</td><td><span class="status status--active">Active</span></td></tr>
+              <tr><td>Diva Mucson</td><td>8:14 AM</td><td><span class="status status--expired">Expired</span></td></tr>
+              <tr><td>Dina Bautista</td><td>10:00 AM</td><td><span class="status status--active">Active</span></td></tr>
+              <tr><td>Isabelle Diaz</td><td>10:32 AM</td><td><span class="status status--active">Active</span></td></tr>
+              <tr><td>Rux Mendez</td><td>11:48 AM</td><td><span class="status status--active">Active</span></td></tr>
+              <tr><td>Gain Aquino</td><td>4:50 PM</td><td><span class="status status--expired">Expired</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Announcements -->
+      <div class="card announcements-card">
+        <div class="card__header">
+          <h2>Announcements</h2>
+          <a href="announcement.html" class="btn btn--outline btn--sm">Manage</a>
+        </div>
+        <div class="ann-featured-mini">
+          <span class="ann-tag-mini">Important</span>
+          <p class="ann-title-mini">Maintenance Notice</p>
+          <p class="ann-body-mini">Gym closed Sept 27–28 for maintenance.</p>
+          <span class="ann-date-mini">From Sept 13-18</span>
+        </div>
+        <div class="ann-prev-label">Previous Announcements</div>
+        <ul class="ann-list-mini">
+          <li><i data-lucide="megaphone"></i>Important Update: Temporary Closure</li>
+          <li><i data-lucide="megaphone"></i>Important Update: Temporary Closure</li>
+          <li><i data-lucide="megaphone"></i>Important Update: Temporary Closure</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- BOTTOM ROW -->
+    <section class="bottom-grid">
+
+      <!-- Chart -->
+      <div class="card chart-card">
+        <div class="card__header">
+          <h2>Membership Report</h2>
+          <select class="select-mini">
+            <option>2025</option>
+            <option>2024</option>
+          </select>
+        </div>
+        <div class="chart-area">
+          <svg viewBox="0 0 500 165" preserveAspectRatio="none" class="bar-chart">
+            <line x1="0" y1="20"  x2="500" y2="20"  stroke="#2a2a2a" stroke-width="1"/>
+            <line x1="0" y1="60"  x2="500" y2="60"  stroke="#2a2a2a" stroke-width="1"/>
+            <line x1="0" y1="100" x2="500" y2="100" stroke="#2a2a2a" stroke-width="1"/>
+            <line x1="0" y1="140" x2="500" y2="140" stroke="#2a2a2a" stroke-width="1"/>
+            <rect x="10"  y="80"  width="30" height="60"  rx="4" fill="#c8f53a" opacity="0.85"/>
+            <rect x="60"  y="60"  width="30" height="80"  rx="4" fill="#c8f53a" opacity="0.85"/>
+            <rect x="110" y="40"  width="30" height="100" rx="4" fill="#c8f53a" opacity="0.85"/>
+            <rect x="160" y="70"  width="30" height="70"  rx="4" fill="#1e2a14" stroke="#c8f53a" stroke-width="1"/>
+            <rect x="210" y="50"  width="30" height="90"  rx="4" fill="#c8f53a" opacity="0.85"/>
+            <rect x="260" y="30"  width="30" height="110" rx="4" fill="#c8f53a"/>
+            <rect x="310" y="55"  width="30" height="85"  rx="4" fill="#c8f53a" opacity="0.85"/>
+            <rect x="360" y="65"  width="30" height="75"  rx="4" fill="#1e2a14" stroke="#c8f53a" stroke-width="1"/>
+            <rect x="410" y="45"  width="30" height="95"  rx="4" fill="#c8f53a" opacity="0.85"/>
+            <text x="25"  y="158" class="chart-label">Jan</text>
+            <text x="75"  y="158" class="chart-label">Feb</text>
+            <text x="125" y="158" class="chart-label">Mar</text>
+            <text x="175" y="158" class="chart-label">Apr</text>
+            <text x="225" y="158" class="chart-label">May</text>
+            <text x="275" y="158" class="chart-label">Jun</text>
+            <text x="325" y="158" class="chart-label">Jul</text>
+            <text x="375" y="158" class="chart-label">Aug</text>
+            <text x="425" y="158" class="chart-label">Sep</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Feedback summary -->
+      <div class="card feedback-card">
+        <div class="card__header">
+          <h2>Recent Feedback</h2>
+          <a href="feedback.html" class="btn btn--outline btn--sm">View All</a>
+        </div>
+        <ul class="feedback-list">
+          <li class="feedback-item">
+            <div class="feedback-stars">★★★★★</div>
+            <p>"Clean facilities &amp; friendly staff"</p>
+          </li>
+          <li class="feedback-item">
+            <div class="feedback-stars">★★★★☆</div>
+            <p>"Great Equipment, But More Classes Please"</p>
+          </li>
+          <li class="feedback-item">
+            <div class="feedback-stars">★★★★★</div>
+            <p>"Loving Progress &amp; Loving the Gym"</p>
+          </li>
+        </ul>
+        <div class="prev-feedback-label">Previous Feedback</div>
+        <ul class="feedback-list feedback-list--prev">
+          <li class="feedback-item feedback-item--sm">
+            <div class="feedback-stars">★★★★☆</div>
+            <p>"Great Equipment, But More Classes Please"</p>
+          </li>
+          <li class="feedback-item feedback-item--sm">
+            <div class="feedback-stars">★★★☆☆</div>
+            <p>"Clean Facilities, But More Classes Please"</p>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* ============================================================
+   MANAGE MEMBER — Page Styles
+   ============================================================ */
+
+/* Layout grid: form left, table right */
+.mm-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Registration form card */
+.reg-form-card { gap: 14px; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.btn-add {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+}
+
+/* Member list card */
+.member-list-card { gap: 14px; }
+
+/* Plan tab switcher */
+.plan-tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 40px;
+  padding: 4px;
+}
+.plan-tab {
+  padding: 5px 14px;
+  border-radius: 40px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.plan-tab:hover { color: var(--text-primary); }
+.plan-tab.active {
+  background: var(--accent);
+  color: #0d0d0d;
+}
+
+/* Success toast */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #1a2a08, #191919);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 300;
+  white-space: nowrap;
+}
+.toast i { width: 16px; height: 16px; }
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1050px) {
+  .mm-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .form-row { grid-template-columns: 1fr; }
+  .plan-tabs { flex-wrap: wrap; }
+}
