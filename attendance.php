@@ -1,12 +1,27 @@
+<?php
+require_once 'includes/auth.php';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
+
+// Get today's attendance
+$attendance_query = "SELECT m.first_name, m.last_name, m.address, a.check_in_date, a.check_in_time, m.status 
+                     FROM attendance a 
+                     JOIN members m ON a.member_id = m.id 
+                     WHERE a.check_in_date = CURDATE() 
+                     ORDER BY a.check_in_time DESC";
+$attendance_result = mysqli_query($conn, $attendance_query);
+$attendance_count = mysqli_num_rows($attendance_result);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Attendance — Power Fitness Gym</title>
-  <link rel="stylesheet" href="global.css"/>
-  <link rel="stylesheet" href="attendance.css"/>
+  <link rel="stylesheet" href="assets/css/global.css"/>
+  <link rel="stylesheet" href="assets/css/attendance.css"/>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
   <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
 </head>
 <body>
@@ -17,15 +32,13 @@
       <span class="logo-text">POWER<em>FITNESS GYM</em></span>
     </div>
     <nav class="sidebar__nav">
-      <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
-      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
-      <a href="attendance.html" class="nav-item active"><i data-lucide="scan-line"></i><span>Attendance</span></a>
-      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
-      <a href="member-status.html" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
-      <a href="payment.html" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
-      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
-      <a href="feedback.html" class="nav-item"><i data-lucide="message-square"></i><span>Feedback</span></a>
-    </nav>
+      <a href="dashboard.php" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.php" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.php" class="nav-item active"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.php" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.php" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.php" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.php" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>    </nav>
     <div class="sidebar__footer">
       <div class="sidebar__user">
         <div class="avatar">JD</div>
@@ -121,9 +134,9 @@
         <div class="id-area hidden" id="idArea">
           <div class="form-group">
             <label>Member ID</label>
-            <input type="text" class="form-control id-input" placeholder="Enter Member ID..."/>
+            <input type="text" id="manualMemberId" class="form-control id-input" placeholder="Enter Member ID..."/>
           </div>
-          <button class="btn btn--primary" style="width:100%;justify-content:center;" onclick="simulateCheckin()">
+          <button class="btn btn--primary" style="width:100%;justify-content:center;" onclick="manualCheckin()">
             <i data-lucide="log-in"></i> Check In
           </button>
         </div>
@@ -140,7 +153,7 @@
         <div class="card__header">
           <h2>Today's Attendance</h2>
           <div class="att-stats">
-            <span class="att-count" id="attCount">6</span>
+            <span class="att-count" id="attCount"><?php echo $attendance_count; ?></span>
             <span style="color:var(--text-muted);font-size:12px;">checked in</span>
           </div>
         </div>
@@ -156,48 +169,21 @@
               </tr>
             </thead>
             <tbody id="attTableBody">
-              <tr>
-                <td>James Carter</td>
-                <td>Toril, Davao City</td>
-                <td>2025-09-03 &nbsp; 8:02 AM</td>
-                <td><span class="status status--active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Diva Mucson</td>
-                <td>Baliok, Davao City</td>
-                <td>2025-09-01 &nbsp; 8:14 AM</td>
-                <td><span class="status status--expired">Expired</span></td>
-              </tr>
-              <tr>
-                <td>Dina Bautista</td>
-                <td>Crossing, Davao</td>
-                <td>2025-09-03 &nbsp; 10:00 AM</td>
-                <td><span class="status status--active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Isabelle Diaz</td>
-                <td>Kinuskusan, Davao</td>
-                <td>2025-09-03 &nbsp; 10:32 AM</td>
-                <td><span class="status status--active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Rux Mendez</td>
-                <td>Maa, Davao City</td>
-                <td>2025-09-03 &nbsp; 11:48 AM</td>
-                <td><span class="status status--active">Active</span></td>
-              </tr>
-              <tr>
-                <td>Gain Aquino</td>
-                <td>Lungsod, Davao</td>
-                <td>2025-09-03 &nbsp; 4:50 PM</td>
-                <td><span class="status status--expired">Expired</span></td>
-              </tr>
-              <tr>
-                <td>Shanice Montony</td>
-                <td>Toril, Davao City</td>
-                <td>2025-09-03 &nbsp; 7:00 PM</td>
-                <td><span class="status status--active">Active</span></td>
-              </tr>
+              <?php 
+              if ($attendance_count > 0) {
+                  while ($row = mysqli_fetch_assoc($attendance_result)) {
+                      $status_class = strtolower($row['status']) == 'active' ? 'status--active' : 'status--expired';
+                      echo "<tr>";
+                      echo "<td>" . htmlspecialchars($row['first_name'] . ' ' . $row['last_name']) . "</td>";
+                      echo "<td>" . htmlspecialchars($row['address']) . "</td>";
+                      echo "<td>" . date('Y-m-d', strtotime($row['check_in_date'])) . " &nbsp; " . format_time($row['check_in_time']) . "</td>";
+                      echo "<td><span class='status $status_class'>" . htmlspecialchars($row['status']) . "</span></td>";
+                      echo "</tr>";
+                  }
+              } else {
+                  echo "<tr><td colspan='4' style='text-align:center;color:var(--text-muted);'>No check-ins today</td></tr>";
+              }
+              ?>
             </tbody>
           </table>
         </div>
@@ -207,26 +193,123 @@
   </main>
 
   <script>
-    lucide.createIcons && document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());
+    // Initialize Lucide icons when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
 
     const btnQR   = document.getElementById('btnQR');
     const btnID   = document.getElementById('btnID');
     const qrArea  = document.getElementById('qrArea');
     const idArea  = document.getElementById('idArea');
+    let html5QrCode = null;
+    let isScanning = false;
 
     btnQR.addEventListener('click', () => {
       btnQR.classList.add('active'); btnID.classList.remove('active');
       qrArea.classList.remove('hidden'); idArea.classList.add('hidden');
+      startQRScanner();
     });
+    
     btnID.addEventListener('click', () => {
       btnID.classList.add('active'); btnQR.classList.remove('active');
       idArea.classList.remove('hidden'); qrArea.classList.add('hidden');
+      stopQRScanner();
     });
 
-    function simulateCheckin() {
+    function startQRScanner() {
+      if (isScanning) return;
+      
+      html5QrCode = new Html5Qrcode("qrArea");
+      
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 180, height: 180 } },
+        (decodedText) => {
+          checkInMember(decodedText);
+          isScanning = false;
+        },
+        (errorMessage) => {
+          // Scanning (ignore errors)
+        }
+      ).then(() => {
+        isScanning = true;
+      }).catch(err => {
+        console.error("Camera error:", err);
+        alert("Unable to access camera. Please check permissions or use Manual ID entry.");
+      });
+    }
+
+    function stopQRScanner() {
+      if (html5QrCode && isScanning) {
+        html5QrCode.stop().then(() => {
+          isScanning = false;
+        }).catch(err => console.error(err));
+      }
+    }
+
+    function manualCheckin() {
+      const memberId = document.getElementById('manualMemberId').value.trim();
+      if (!memberId) {
+        alert('Please enter a Member ID');
+        return;
+      }
+      checkInMember(memberId);
+    }
+
+    function checkInMember(memberId) {
+      fetch('api/check-in.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'member_id=' + encodeURIComponent(memberId)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showToast('Check-in Successful!');
+          addAttendanceRow(data.member);
+          document.getElementById('manualMemberId').value = '';
+          
+          const countEl = document.getElementById('attCount');
+          countEl.textContent = parseInt(countEl.textContent) + 1;
+        } else {
+          alert(data.message || 'Check-in failed');
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error processing check-in');
+      });
+    }
+
+    function addAttendanceRow(member) {
+      const tbody = document.getElementById('attTableBody');
+      const now = new Date();
+      const time = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+      const date = now.toISOString().split('T')[0];
+      
+      const statusClass = member.status.toLowerCase() === 'active' ? 'status--active' : 'status--expired';
+      
+      const row = `<tr>
+        <td>${member.name}</td>
+        <td>${member.address}</td>
+        <td>${date} &nbsp; ${time}</td>
+        <td><span class="status ${statusClass}">${member.status}</span></td>
+      </tr>`;
+      
+      tbody.insertAdjacentHTML('afterbegin', row);
+    }
+
+    function showToast(message) {
       const toast = document.getElementById('checkinToast');
-      toast.classList.remove('hidden'); toast.classList.add('show');
-      setTimeout(()=>{ toast.classList.remove('show'); setTimeout(()=>toast.classList.add('hidden'),400); }, 2800);
+      toast.classList.remove('hidden');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.classList.add('hidden'), 400);
+      }, 2800);
     }
   </script>
 </body>

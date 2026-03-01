@@ -1,11 +1,20 @@
+<?php
+require_once 'includes/auth.php';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
+
+// Get all members
+$members_query = "SELECT * FROM members ORDER BY first_name ASC";
+$members_result = mysqli_query($conn, $members_query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Member Status — Power Fitness Gym</title>
-  <link rel="stylesheet" href="global.css"/>
-  <link rel="stylesheet" href="member-status.css"/>
+  <link rel="stylesheet" href="assets/css/global.css"/>
+  <link rel="stylesheet" href="assets/css/member-status.css"/>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
   <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
 </head>
@@ -17,15 +26,13 @@
       <span class="logo-text">POWER<em>FITNESS GYM</em></span>
     </div>
     <nav class="sidebar__nav">
-      <a href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
-      <a href="manage-member.html" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
-      <a href="attendance.html" class="nav-item"><i data-lucide="scan-line"></i><span>Attendance</span></a>
-      <a href="inventory.html" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
-      <a href="member-status.html" class="nav-item active"><i data-lucide="shield-check"></i><span>Member Status</span></a>
-      <a href="payment.html" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
-      <a href="announcement.html" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
-      <a href="feedback.html" class="nav-item"><i data-lucide="message-square"></i><span>Feedback</span></a>
-    </nav>
+      <a href="dashboard.php" class="nav-item"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a>
+      <a href="manage-member.php" class="nav-item"><i data-lucide="users"></i><span>Manage Member</span></a>
+      <a href="attendance.php" class="nav-item"><i data-lucide="scan-line"></i><span>Attendance</span></a>
+      <a href="inventory.php" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
+      <a href="member-status.php" class="nav-item active"><i data-lucide="shield-check"></i><span>Member Status</span></a>
+      <a href="payment.php" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
+      <a href="announcement.php" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>    </nav>
     <div class="sidebar__footer">
       <div class="sidebar__user">
         <div class="avatar">JD</div>
@@ -79,86 +86,40 @@
               </tr>
             </thead>
             <tbody>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>James Carter</td>
-                <td>Toril, Davao City</td>
-                <td>2025-09-03</td>
-                <td>2026-09-03</td>
-                <td><span class="status status--active">Active</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Diva Mucson</td>
-                <td>Baliok, Davao City</td>
-                <td>2025-09-01</td>
-                <td>2025-12-01</td>
-                <td><span class="status status--expired">Expired</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Olivia Santino</td>
-                <td>Maa, Davao City</td>
-                <td>2025-03-10</td>
-                <td>2026-03-10</td>
-                <td><span class="status status--active">Active</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Isabella Cruz</td>
-                <td>Kinuskusan, Davao</td>
-                <td>2024-06-15</td>
-                <td>2025-06-15</td>
-                <td><span class="status status--expired">Expired</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Mark Maratz</td>
-                <td>Toril, Davao City</td>
-                <td>2025-04-22</td>
-                <td>2026-04-22</td>
-                <td><span class="status status--active">Active</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Clarence Martial</td>
-                <td>Tugbok, Davao City</td>
-                <td>2025-01-01</td>
-                <td>2025-07-01</td>
-                <td><span class="status status--expired">Expired</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Justine Bondan</td>
-                <td>Puan, Davao City</td>
-                <td>2025-09-02</td>
-                <td>2026-09-02</td>
-                <td><span class="status status--active">Active</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Dillon Shaw</td>
-                <td>Puan, Davao City</td>
-                <td>2025-09-01</td>
-                <td>2025-10-01</td>
-                <td><span class="status status--pending">Pending</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Danica Mangca</td>
-                <td>Maa, Davao City</td>
-                <td>2025-09-02</td>
-                <td>2026-09-02</td>
-                <td><span class="status status--active">Active</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
-              <tr onclick="showProfile(this)" class="clickable-row">
-                <td>Andrew Lee</td>
-                <td>Toril, Davao City</td>
-                <td>2025-09-01</td>
-                <td>2025-10-01</td>
-                <td><span class="status status--expired">Expired</span></td>
-                <td><button class="btn btn--outline btn--sm">View</button></td>
-              </tr>
+              <?php 
+              if (mysqli_num_rows($members_result) > 0) {
+                  while ($member = mysqli_fetch_assoc($members_result)) {
+                      // Update status based on expiry
+                      $current_status = check_member_status($member['date_expiry']);
+                      if ($current_status != $member['status']) {
+                          mysqli_query($conn, "UPDATE members SET status='$current_status' WHERE id=" . $member['id']);
+                          $member['status'] = $current_status;
+                      }
+                      
+                      $status_class = 'status--' . strtolower($member['status']);
+                      echo "<tr onclick='showProfile(this)' class='clickable-row' 
+                            data-id='" . $member['id'] . "'
+                            data-name='" . htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) . "'
+                            data-gender='" . htmlspecialchars($member['gender']) . "'
+                            data-dob='" . date('m/d/Y', strtotime($member['date_of_birth'])) . "'
+                            data-duration='" . htmlspecialchars($member['duration']) . "'
+                            data-email='member@email.com'
+                            data-phone='" . htmlspecialchars($member['phone']) . "'
+                            data-status='" . htmlspecialchars($member['status']) . "'
+                            data-memberid='" . htmlspecialchars($member['member_id_code']) . "'
+                            data-initials='" . strtoupper(substr($member['first_name'], 0, 1) . substr($member['last_name'], 0, 1)) . "'>";
+                      echo "<td>" . htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) . "</td>";
+                      echo "<td>" . htmlspecialchars($member['address']) . "</td>";
+                      echo "<td>" . date('Y-m-d', strtotime($member['date_enrolled'])) . "</td>";
+                      echo "<td>" . date('Y-m-d', strtotime($member['date_expiry'])) . "</td>";
+                      echo "<td><span class='status $status_class'>" . htmlspecialchars($member['status']) . "</span></td>";
+                      echo "<td><button class='btn btn--outline btn--sm'>View</button></td>";
+                      echo "</tr>";
+                  }
+              } else {
+                  echo "<tr><td colspan='6' style='text-align:center;color:var(--text-muted);'>No members found</td></tr>";
+              }
+              ?>
             </tbody>
           </table>
         </div>
@@ -277,16 +238,56 @@
     function showProfile(row) {
       document.querySelectorAll('.clickable-row').forEach(r => r.classList.remove('selected'));
       row.classList.add('selected');
-      const name = row.cells[0].textContent;
+      
+      // Get data from row
+      const name = row.dataset.name;
+      const gender = row.dataset.gender;
+      const dob = row.dataset.dob;
+      const duration = row.dataset.duration;
+      const email = row.dataset.email;
+      const phone = row.dataset.phone;
+      const status = row.dataset.status;
+      const memberId = row.dataset.memberid;
+      const initials = row.dataset.initials;
+      
+      // Update profile panel
       document.getElementById('pName').textContent = name;
+      document.querySelector('.profile-avatar-lg').textContent = initials;
+      document.querySelectorAll('.mem-avatar').forEach(el => el.textContent = initials);
+      
+      // Update all fields
+      const fields = document.querySelectorAll('.pf-val');
+      fields[0].textContent = name;
+      fields[1].textContent = gender;
+      fields[2].textContent = dob;
+      fields[3].textContent = duration;
+      fields[4].textContent = email;
+      fields[5].textContent = phone;
+      
+      // Update status
+      const statusEl = document.querySelector('.profile-details .status');
+      statusEl.className = 'status status--' + status.toLowerCase();
+      statusEl.textContent = status;
+      
+      // Update membership card
+      document.querySelectorAll('.mem-field-val')[0].textContent = name;
+      document.querySelectorAll('.mem-field-val')[1].textContent = memberId;
+      
+      const cardStatus = document.querySelector('.mem-card .status');
+      cardStatus.className = 'status status--' + status.toLowerCase();
+      cardStatus.textContent = status;
+      
       document.getElementById('profilePanel').classList.add('visible');
+      lucide.createIcons();
     }
+    
     function filterMembers() {
       const q = document.getElementById('msSearch').value.toLowerCase();
       document.querySelectorAll('#memberTable tbody tr').forEach(row => {
         row.style.display = row.cells[0].textContent.toLowerCase().includes(q) ? '' : 'none';
       });
     }
+    
     function filterByStatus(val) {
       document.querySelectorAll('#memberTable tbody tr').forEach(row => {
         const s = row.querySelector('.status')?.textContent || '';

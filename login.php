@@ -1,11 +1,19 @@
+<?php
+session_start();
+// If already logged in, redirect to dashboard
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login — Power Fitness Gym</title>
-  <link rel="stylesheet" href="global.css"/>
-  <link rel="stylesheet" href="login.css"/>
+  <link rel="stylesheet" href="assets/css/global.css"/>
+  <link rel="stylesheet" href="assets/css/login.css"/>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
   <script>document.addEventListener('DOMContentLoaded',()=>lucide.createIcons());</script>
 </head>
@@ -27,12 +35,12 @@
         <h2 class="form-title">Sign In</h2>
         <p class="form-subtitle">Enter your credentials to access your account</p>
 
-        <form class="auth-form" onsubmit="handleLogin(event)">
+        <form class="auth-form" method="POST" action="actions/login-process.php">
           <div class="form-group">
             <label>Email Address</label>
             <div class="input-with-icon">
               <i data-lucide="mail"></i>
-              <input type="email" class="form-control" placeholder="admin@powergym.com" required/>
+              <input type="email" name="email" class="form-control" placeholder="admin@powergym.com" required/>
             </div>
           </div>
 
@@ -40,7 +48,7 @@
             <label>Password</label>
             <div class="input-with-icon">
               <i data-lucide="lock"></i>
-              <input type="password" class="form-control" placeholder="Enter your password" required/>
+              <input type="password" name="password" class="form-control" placeholder="Enter your password" required/>
             </div>
           </div>
 
@@ -64,15 +72,15 @@
         <h2 class="form-title">Create Account</h2>
         <p class="form-subtitle">Register to start managing your gym</p>
 
-        <form class="auth-form" onsubmit="handleRegister(event)">
+        <form class="auth-form" method="POST" action="actions/register-process.php">
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control" placeholder="John" required/>
+              <input type="text" name="first_name" class="form-control" placeholder="John" required/>
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control" placeholder="Doe" required/>
+              <input type="text" name="last_name" class="form-control" placeholder="Doe" required/>
             </div>
           </div>
 
@@ -80,7 +88,7 @@
             <label>Email Address</label>
             <div class="input-with-icon">
               <i data-lucide="mail"></i>
-              <input type="email" class="form-control" placeholder="you@example.com" required/>
+              <input type="email" name="email" class="form-control" placeholder="you@example.com" required/>
             </div>
           </div>
 
@@ -88,7 +96,7 @@
             <label>Phone Number</label>
             <div class="input-with-icon">
               <i data-lucide="phone"></i>
-              <input type="tel" class="form-control" placeholder="09XX XXX XXXX" required/>
+              <input type="tel" name="phone" class="form-control" placeholder="09XX XXX XXXX" required/>
             </div>
           </div>
 
@@ -96,7 +104,7 @@
             <label>Password</label>
             <div class="input-with-icon">
               <i data-lucide="lock"></i>
-              <input type="password" class="form-control" placeholder="Create a strong password" required/>
+              <input type="password" name="password" class="form-control" placeholder="Create a strong password" required/>
             </div>
           </div>
 
@@ -104,7 +112,7 @@
             <label>Confirm Password</label>
             <div class="input-with-icon">
               <i data-lucide="lock"></i>
-              <input type="password" class="form-control" placeholder="Re-enter your password" required/>
+              <input type="password" name="confirm_password" class="form-control" placeholder="Re-enter your password" required/>
             </div>
           </div>
 
@@ -135,7 +143,7 @@
             <label>Email Address</label>
             <div class="input-with-icon">
               <i data-lucide="mail"></i>
-              <input type="email" class="form-control" placeholder="your@email.com" required/>
+              <input type="email" name="email" class="form-control" placeholder="your@email.com" required/>
             </div>
           </div>
 
@@ -160,6 +168,24 @@
     <i data-lucide="check-circle"></i>
     <span id="toastMessage">Success!</span>
   </div>
+
+  <?php
+  // Show error or success messages
+  if (isset($_GET['error'])) {
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              showToast('" . htmlspecialchars($_GET['error']) . "');
+          });
+      </script>";
+  }
+  if (isset($_GET['success'])) {
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              showToast('" . htmlspecialchars($_GET['success']) . "');
+          });
+      </script>";
+  }
+  ?>
 
   <script>
     // Tab switching
@@ -206,30 +232,9 @@
       }, 3000);
     }
 
-    // Handle login
-    function handleLogin(e) {
-      e.preventDefault();
-      // Add your login logic here
-      showToast('Login successful! Redirecting...');
-      setTimeout(() => {
-        window.location.href = 'dashboard.html';
-      }, 1500);
-    }
-
-    // Handle register
-    function handleRegister(e) {
-      e.preventDefault();
-      // Add your registration logic here
-      showToast('Account created successfully!');
-      setTimeout(() => {
-        switchTab('login');
-      }, 2000);
-    }
-
-    // Handle forgot password
+    // Handle forgot password (simple alert for now)
     function handleForgotPassword(e) {
       e.preventDefault();
-      // Add your forgot password logic here
       showToast('Password reset link sent to your email!');
       setTimeout(() => {
         backToLogin();
