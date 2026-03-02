@@ -2,6 +2,7 @@
 session_start();
 require_once '../includes/config.php';
 require_once '../includes/functions.php';
+require_once '../includes/qr-generator.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
@@ -38,9 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_stmt_execute($stmt)) {
         $member_id = mysqli_insert_id($conn);
         
-        // TODO: Generate QR code here (we'll add this later)
+        // Generate QR code for member
+        $qr_save_path = '../' . get_qr_path($member_id_code);
+        $qr_generated = generate_member_qr($member_id_code, $qr_save_path);
         
-        redirect('../manage-member.php?success=Member added successfully! ID: ' . $member_id_code);
+        if ($qr_generated) {
+            redirect('../manage-member.php?success=Member added successfully! ID: ' . $member_id_code);
+        } else {
+            redirect('../manage-member.php?success=Member added but QR generation failed. ID: ' . $member_id_code);
+        }
     } else {
         redirect('../manage-member.php?error=Failed to add member');
     }

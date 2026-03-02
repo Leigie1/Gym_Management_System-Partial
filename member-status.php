@@ -2,6 +2,7 @@
 require_once 'includes/auth.php';
 require_once 'includes/config.php';
 require_once 'includes/functions.php';
+require_once 'includes/qr-generator.php';
 
 // Get all members
 $members_query = "SELECT * FROM members ORDER BY first_name ASC";
@@ -53,7 +54,6 @@ $members_result = mysqli_query($conn, $members_query);
           <i data-lucide="search"></i>
           <input type="text" placeholder="Search by name..." id="msSearch" oninput="filterMembers()"/>
         </div>
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 
@@ -97,6 +97,7 @@ $members_result = mysqli_query($conn, $members_query);
                       }
                       
                       $status_class = 'status--' . strtolower($member['status']);
+                      $qr_path = qr_exists($member['member_id_code']) ? get_qr_path($member['member_id_code']) : '';
                       echo "<tr onclick='showProfile(this)' class='clickable-row' 
                             data-id='" . $member['id'] . "'
                             data-name='" . htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) . "'
@@ -107,6 +108,7 @@ $members_result = mysqli_query($conn, $members_query);
                             data-phone='" . htmlspecialchars($member['phone']) . "'
                             data-status='" . htmlspecialchars($member['status']) . "'
                             data-memberid='" . htmlspecialchars($member['member_id_code']) . "'
+                            data-qrpath='" . htmlspecialchars($qr_path) . "'
                             data-initials='" . strtoupper(substr($member['first_name'], 0, 1) . substr($member['last_name'], 0, 1)) . "'>";
                       echo "<td>" . htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) . "</td>";
                       echo "<td>" . htmlspecialchars($member['address']) . "</td>";
@@ -190,7 +192,7 @@ $members_result = mysqli_query($conn, $members_query);
             </div>
             <div class="mem-card__right">
               <p class="mem-field-label" style="text-align:center;margin-bottom:6px;">QR CODE</p>
-              <div class="qr-placeholder">
+              <div class="qr-placeholder" id="qrDisplay">
                 <svg viewBox="0 0 80 80" width="100" height="100">
                   <rect x="5"  y="5"  width="22" height="22" rx="3" fill="none" stroke="#c8f53a" stroke-width="2"/>
                   <rect x="53" y="5"  width="22" height="22" rx="3" fill="none" stroke="#c8f53a" stroke-width="2"/>
@@ -249,6 +251,7 @@ $members_result = mysqli_query($conn, $members_query);
       const status = row.dataset.status;
       const memberId = row.dataset.memberid;
       const initials = row.dataset.initials;
+      const qrPath = row.dataset.qrpath;
       
       // Update profile panel
       document.getElementById('pName').textContent = name;
@@ -276,6 +279,14 @@ $members_result = mysqli_query($conn, $members_query);
       const cardStatus = document.querySelector('.mem-card .status');
       cardStatus.className = 'status status--' + status.toLowerCase();
       cardStatus.textContent = status;
+      
+      // Update QR code display
+      const qrDisplay = document.getElementById('qrDisplay');
+      if (qrPath) {
+        qrDisplay.innerHTML = '<img src="' + qrPath + '" alt="QR Code" style="width:120px;height:120px;border-radius:8px;">';
+      } else {
+        qrDisplay.innerHTML = '<p style="color:var(--text-muted);font-size:12px;text-align:center;">QR not generated</p>';
+      }
       
       document.getElementById('profilePanel').classList.add('visible');
       lucide.createIcons();

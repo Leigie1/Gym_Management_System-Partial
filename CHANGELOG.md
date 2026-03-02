@@ -1,5 +1,34 @@
 # Changelog
 
+## Version 1.1.0 - QR Code Implementation
+
+### 🆕 New Features
+
+**QR Code System**
+- ✅ Automatic QR code generation for new members
+- ✅ QR codes generated using Google Charts API
+- ✅ QR codes stored in assets/qrcodes/
+- ✅ QR codes displayed on member cards
+- ✅ QR scanner fully functional with camera
+- ✅ Batch QR generator for existing members (generate-qr-batch.php)
+
+**Updated Files**
+- `includes/qr-generator.php` - New QR generation functions
+- `actions/add-member.php` - Auto-generates QR on member creation
+- `member-status.php` - Displays actual QR codes instead of placeholder
+- `attendance.php` - QR scanner ready to scan generated codes
+- `generate-qr-batch.php` - Utility to generate QR for existing members
+
+### 🔄 Recent Updates
+
+**2024-03-02**
+- ✅ Implemented QR code generation system
+- ✅ Added QR display on membership cards
+- ✅ Created batch QR generator utility
+- ✅ Updated documentation
+
+---
+
 ## Version 1.0.0 - Initial Release
 
 ### ✅ Completed Features
@@ -33,7 +62,8 @@
 
 **Attendance Tracking**
 - Manual ID check-in (AJAX)
-- QR scanner ready (needs camera permission)
+- QR code scanner (fully functional with camera)
+- Automatic QR code generation for new members
 - Today's attendance list
 - Real-time check-in counter
 - Duplicate check-in prevention
@@ -111,7 +141,6 @@
 ### ⚠️ Known Limitations
 
 **Not Implemented (Optional)**
-- QR code generation for members (library needed)
 - Edit member functionality (only add/delete)
 - Edit inventory functionality (only add/delete)
 - PDF/Excel export
@@ -128,7 +157,6 @@
 ### 🎯 Future Enhancements
 
 **Priority 1 (High)**
-- [ ] QR code generation for member cards
 - [ ] Edit member details
 - [ ] Edit inventory items
 - [ ] Client-side form validation

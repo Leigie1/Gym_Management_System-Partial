@@ -46,7 +46,6 @@ $inventory_result = mysqli_query($conn, $inventory_query);
         <p>Manage gym products and stock levels</p>
       </div>
       <div class="topbar__actions">
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 

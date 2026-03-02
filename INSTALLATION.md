@@ -34,6 +34,14 @@ Only if your MySQL password is NOT empty:
    - Email: `admin@powergym.com`
    - Password: `admin123`
 
+### Step 6: Generate QR Codes (Optional)
+If you imported sample members, generate their QR codes:
+1. Visit: `http://localhost/Gym_Management_System/generate-qr-batch.php`
+2. Wait for completion
+3. All members now have scannable QR codes!
+
+Note: New members automatically get QR codes when added.
+
 ## Done! 🎉
 
 You should now see the dashboard.
@@ -90,6 +98,11 @@ Ensure these folders are writable:
    - Allow camera permission
    - Scanner should activate
 
+5. **QR Generation Test**
+   - Visit: `http://localhost/Gym_Management_System/test-qr.php`
+   - Should generate a test QR code
+   - Verifies QR system is working
+
 ### Common Issues
 
 **Issue**: "Connection failed" error
@@ -102,7 +115,13 @@ Ensure these folders are writable:
 - **Fix**: Check folder structure, ensure `assets/css/` exists
 
 **Issue**: QR scanner not working
-- **Fix**: Use Chrome browser, allow camera permissions
+- **Fix**: Use Chrome browser, allow camera permissions, ensure HTTPS or localhost
+
+**Issue**: QR codes not generating
+- **Fix**: Check internet connection (uses Google Charts API), verify `assets/qrcodes/` folder is writable
+
+**Issue**: QR codes not displaying
+- **Fix**: Run `generate-qr-batch.php` to create missing QR codes
 
 ### Server Requirements
 

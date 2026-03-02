@@ -7,7 +7,7 @@ A complete gym management system built with PHP and MySQL featuring member manag
 - 🔐 **User Authentication** - Secure login/register system with sessions
 - 👥 **Member Management** - Add, view, delete members with auto-generated IDs
 - 📊 **Dashboard** - Real-time statistics and overview
-- ✅ **Attendance Tracking** - QR code scanning + manual check-in
+- ✅ **Attendance Tracking** - QR code scanning + manual check-in (auto-generates QR codes)
 - 💳 **Payment Processing** - Record transactions (Cash/GCash)
 - 📦 **Inventory Management** - Track gym products and stock levels
 - 📢 **Announcements** - Create and manage gym announcements
@@ -21,6 +21,17 @@ A complete gym management system built with PHP and MySQL featuring member manag
 - **Database**: MySQL 5.7+
 - **Icons**: Lucide Icons
 - **QR Scanning**: html5-qrcode library
+
+## Documentation
+
+- **README.md** - This file (overview and features)
+- **INSTALLATION.md** - Step-by-step setup guide
+- **TROUBLESHOOTING.md** - Common issues and solutions
+- **CHANGELOG.md** - Version history and updates
+- **PROJECT_SUMMARY.md** - Complete project documentation
+- **QUICK_START_QR.md** - Quick start guide for QR system
+- **QR_USAGE_GUIDE.md** - Complete QR code user guide
+- **QR_IMPLEMENTATION_SUMMARY.md** - Technical QR implementation details
 
 ## Installation
 
@@ -55,6 +66,12 @@ A complete gym management system built with PHP and MySQL featuring member manag
    - Default login:
      - Email: `admin@powergym.com`
      - Password: `admin123`
+
+5. **Generate QR Codes for Existing Members** (Optional)
+   - If you imported the database with sample members
+   - Visit: `http://localhost/Gym_Management_System/generate-qr-batch.php`
+   - This will create QR codes for all existing members
+   - New members will automatically get QR codes when added
 
 ## Project Structure
 

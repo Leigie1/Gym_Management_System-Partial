@@ -46,7 +46,6 @@ $announcements_result = mysqli_query($conn, $announcements_query);
         <p>Create and manage gym announcements</p>
       </div>
       <div class="topbar__actions">
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 

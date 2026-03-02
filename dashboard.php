@@ -72,7 +72,6 @@ $announcement_result = mysqli_query($conn, $announcement_query);
           <i data-lucide="search"></i>
           <input type="text" placeholder="Search..."/>
         </div>
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 

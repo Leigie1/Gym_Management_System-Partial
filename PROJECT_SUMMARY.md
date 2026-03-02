@@ -51,7 +51,9 @@ A complete gym management system for **admin/staff** to manage gym members (cust
 
 ### 5. **Attendance Tracking**
 - Manual ID check-in (working with AJAX)
-- QR scanner ready (needs camera permission to test)
+- QR code scanner (camera-based, fully functional)
+- Automatic QR code generation for new members
+- QR codes stored in assets/qrcodes/
 - Today's attendance list
 - Real-time check-in counter
 - Duplicate check-in prevention (one per day)
@@ -105,7 +107,8 @@ Gym_Management_System/
 ├── includes/                 # Core PHP files
 │   ├── config.php           # Database connection
 │   ├── auth.php             # Authentication check
-│   └── functions.php        # Helper functions (31 functions)
+│   ├── functions.php        # Helper functions (31 functions)
+│   └── qr-generator.php     # QR code generation functions
 │
 ├── actions/                  # Form processing scripts
 │   ├── login-process.php
@@ -120,6 +123,8 @@ Gym_Management_System/
 │
 ├── api/                      # AJAX endpoints
 │   └── check-in.php         # Attendance check-in (AJAX)
+│
+├── generate-qr-batch.php     # Utility: Generate QR codes for existing members
 │
 └── assets/                   # Static files
     ├── css/                  # All stylesheets
@@ -194,7 +199,6 @@ Gym_Management_System/
 
 ### Current Limitations:
 ⚠️ **No edit functions** - Can only add/delete, not update  
-⚠️ **No QR generation** - Members don't have QR codes yet (library needed)  
 ⚠️ **No email system** - No notifications  
 ⚠️ **No reports/export** - No PDF or Excel  
 
@@ -239,10 +243,10 @@ Status: Production ready
 ## 📝 Future Enhancements (Optional)
 
 ### Priority 1 (High Value)
-- [ ] QR code generation for member cards (PHP library needed)
 - [ ] Edit member details (update form + action)
 - [ ] Edit inventory items
 - [ ] Client-side form validation (JavaScript)
+- [ ] Batch QR regeneration tool
 
 ### Priority 2 (Nice to Have)
 - [ ] Export reports (PDF/Excel)
@@ -351,15 +355,15 @@ If you return to this project later:
 
 2. **What's NOT implemented:**
    - Edit functions (members, inventory)
-   - QR code generation
    - Email system
    - Reports/export
 
 3. **To add QR generation:**
-   - Install: `composer require endroid/qr-code`
-   - Update: `actions/add-member.php`
-   - Generate QR on member creation
-   - Save to: `assets/qrcodes/`
+   - ✅ Already implemented using Google Charts API
+   - QR codes auto-generate when adding new members
+   - Run `generate-qr-batch.php` to create QR codes for existing members
+   - QR codes saved to: `assets/qrcodes/`
+   - Display on member cards in Member Status page
 
 4. **To add edit functions:**
    - Create: `actions/edit-member.php`

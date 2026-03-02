@@ -63,7 +63,6 @@ $total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(amount) as t
           <i data-lucide="search"></i>
           <input type="text" placeholder="Search member..."/>
         </div>
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 

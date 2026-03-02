@@ -59,7 +59,6 @@ $attendance_count = mysqli_num_rows($attendance_result);
           <i data-lucide="search"></i>
           <input type="text" placeholder="Search members..."/>
         </div>
-        <button class="icon-btn"><i data-lucide="bell"></i><span class="badge">3</span></button>
       </div>
     </header>
 
