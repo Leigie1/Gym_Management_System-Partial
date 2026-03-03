@@ -30,7 +30,9 @@ $announcements_result = mysqli_query($conn, $announcements_query);
       <a href="inventory.php" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
       <a href="member-status.php" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
       <a href="payment.php" class="nav-item"><i data-lucide="credit-card"></i><span>Payment</span></a>
-      <a href="announcement.php" class="nav-item active"><i data-lucide="megaphone"></i><span>Announcement</span></a>    </nav>
+      <a href="announcement.php" class="nav-item active"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="metrics.php" class="nav-item"><i data-lucide="bar-chart-3"></i><span>Metrics</span></a>
+    </nav>
     <div class="sidebar__footer">
       <div class="sidebar__user">
         <div class="avatar"><?php echo strtoupper(substr($user_name, 0, 2)); ?></div>

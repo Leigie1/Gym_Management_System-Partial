@@ -42,7 +42,9 @@ $total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(amount) as t
       <a href="inventory.php" class="nav-item"><i data-lucide="package"></i><span>Inventory</span></a>
       <a href="member-status.php" class="nav-item"><i data-lucide="shield-check"></i><span>Member Status</span></a>
       <a href="payment.php" class="nav-item active"><i data-lucide="credit-card"></i><span>Payment</span></a>
-      <a href="announcement.php" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>    </nav>
+      <a href="announcement.php" class="nav-item"><i data-lucide="megaphone"></i><span>Announcement</span></a>
+      <a href="metrics.php" class="nav-item"><i data-lucide="bar-chart-3"></i><span>Metrics</span></a>
+    </nav>
     <div class="sidebar__footer">
       <div class="sidebar__user">
         <div class="avatar">JD</div>
@@ -124,10 +126,7 @@ $total_revenue = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(amount) as t
           </button>
         </div>
         <input type="hidden" name="payment_method" id="paymentMethod" value="Cash"/>
-          <button type="button" class="pay-method-btn" onclick="selectMethod(this,'cash')">
-            <i data-lucide="banknote"></i>
-            Cash
-          </button>
+          
         </div>
 
         <!-- GCash QR (shown when GCash selected) -->

@@ -46,7 +46,7 @@ A complete gym management system for **admin/staff** to manage gym members (cust
 - View detailed member profiles
 - Search members by name
 - Filter by status (Active/Expired/Pending)
-- Display membership card with QR placeholder
+- Display membership card with QR codes
 - Click-to-view profile details
 
 ### 5. **Attendance Tracking**
@@ -79,6 +79,19 @@ A complete gym management system for **admin/staff** to manage gym members (cust
 - Delete announcements
 - Display on dashboard (most recent featured)
 - Staff-to-staff communication tool
+
+### 9. **Business Metrics & Analytics** ⭐ NEW
+- Comprehensive business statistics dashboard
+- Key performance indicators (KPIs)
+- Revenue trends (last 6 months)
+- Attendance trends (last 7 days)
+- Member status distribution charts
+- Payment methods analysis
+- Top 5 most active members
+- Expiring memberships alerts
+- Inventory value tracking
+- Interactive charts (Chart.js)
+- Print-friendly reports
 
 ---
 
