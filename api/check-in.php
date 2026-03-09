@@ -33,25 +33,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['member_id'])) {
             exit();
         }
         
-        // Insert attendance record
-        $insert_query = "INSERT INTO attendance (member_id, check_in_date, check_in_time) VALUES (?, CURDATE(), CURTIME())";
-        $insert_stmt = mysqli_prepare($conn, $insert_query);
-        mysqli_stmt_bind_param($insert_stmt, "i", $member['id']);
+        // Call stored procedure to check in member
+        $call_query = "CALL sp_checkin_member(?, @status, @message)";
+        $call_stmt = mysqli_prepare($conn, $call_query);
+        mysqli_stmt_bind_param($call_stmt, "i", $member['id']);
         
-        if (mysqli_stmt_execute($insert_stmt)) {
-            echo json_encode([
-                'success' => true,
-                'message' => 'Check-in successful',
-                'member' => [
-                    'name' => $member['first_name'] . ' ' . $member['last_name'],
-                    'address' => $member['address'],
-                    'status' => $member['status']
-                ]
-            ]);
-        } else {
+        try {
+            if (mysqli_stmt_execute($call_stmt)) {
+                mysqli_stmt_close($call_stmt);
+                
+                // Get the OUT parameters
+                $result = mysqli_query($conn, "SELECT @status AS status, @message AS message");
+                $row = mysqli_fetch_assoc($result);
+                
+                if ($row['status'] === 'SUCCESS') {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => $row['message'],
+                        'member' => [
+                            'name' => $member['first_name'] . ' ' . $member['last_name'],
+                            'address' => $member['address'],
+                            'status' => $member['status']
+                        ]
+                    ]);
+                } else {
+                    echo json_encode([
+                        'success' => false,
+                        'message' => $row['message']
+                    ]);
+                }
+            } else {
+                // Get the MySQL error message (includes trigger errors)
+                $error_message = mysqli_error($conn);
+                echo json_encode([
+                    'success' => false,
+                    'message' => $error_message
+                ]);
+            }
+        } catch (mysqli_sql_exception $e) {
+            // Catch trigger errors thrown as exceptions
             echo json_encode([
                 'success' => false,
-                'message' => 'Failed to record attendance'
+                'message' => $e->getMessage()
             ]);
         }
     } else {

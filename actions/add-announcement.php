@@ -14,10 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "sssss", $title, $message, $date_from, $date_to, $priority);
     
-    if (mysqli_stmt_execute($stmt)) {
-        redirect('../announcement.php?success=Announcement created successfully');
-    } else {
-        redirect('../announcement.php?error=Failed to create announcement');
+    try {
+        if (mysqli_stmt_execute($stmt)) {
+            redirect('../announcement.php?success=Announcement created successfully');
+        } else {
+            // Get the MySQL error message (includes trigger errors)
+            $error_message = mysqli_error($conn);
+            redirect('../announcement.php?error=' . urlencode($error_message));
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Catch trigger errors thrown as exceptions
+        redirect('../announcement.php?error=' . urlencode($e->getMessage()));
     }
 } else {
     redirect('../announcement.php');

@@ -4,8 +4,31 @@
 -- This file contains 9 triggers and 9 stored procedures
 -- for enhanced database functionality and automation
 -- ============================================================
+-- IMPORTANT: Run this file in MySQL/phpMyAdmin to install
+-- ============================================================
 
 USE gym_system;
+
+-- Drop existing triggers and procedures if they exist
+DROP TRIGGER IF EXISTS trg_before_insert_member;
+DROP TRIGGER IF EXISTS trg_after_insert_member;
+DROP TRIGGER IF EXISTS trg_before_update_member;
+DROP TRIGGER IF EXISTS trg_after_insert_payment;
+DROP TRIGGER IF EXISTS trg_before_insert_attendance;
+DROP TRIGGER IF EXISTS trg_after_insert_attendance;
+DROP TRIGGER IF EXISTS trg_before_insert_payment;
+DROP TRIGGER IF EXISTS trg_before_update_inventory;
+DROP TRIGGER IF EXISTS trg_before_insert_announcement;
+
+DROP PROCEDURE IF EXISTS sp_add_member;
+DROP PROCEDURE IF EXISTS sp_checkin_member;
+DROP PROCEDURE IF EXISTS sp_get_member_stats;
+DROP PROCEDURE IF EXISTS sp_update_member_statuses;
+DROP PROCEDURE IF EXISTS sp_revenue_report;
+DROP PROCEDURE IF EXISTS sp_attendance_report;
+DROP PROCEDURE IF EXISTS sp_get_expiring_memberships;
+DROP PROCEDURE IF EXISTS sp_renew_membership;
+DROP PROCEDURE IF EXISTS sp_get_top_members;
 
 -- ============================================================
 -- CREATE BUSINESS METRICS TABLE
@@ -32,7 +55,7 @@ CREATE TABLE IF NOT EXISTS business_metrics (
 -- ============================================================
 
 -- 1. Add New Member with Auto-Generated ID
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_add_member(
     IN p_first_name VARCHAR(50),
     IN p_last_name VARCHAR(50),
@@ -77,11 +100,11 @@ BEGIN
         p_member_id_code, p_first_name, p_last_name, p_address, p_phone, p_gender,
         p_date_of_birth, p_plan, p_duration, p_amount, p_date_enrolled, v_expiry_date, 'Active'
     );
-END //
+END$$
 DELIMITER ;
 
 -- 2. Record Member Check-in
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_checkin_member(
     IN p_member_id INT,
     OUT p_status VARCHAR(50),
@@ -115,11 +138,11 @@ BEGIN
             SET p_message = 'Check-in recorded successfully';
         END IF;
     END IF;
-END //
+END$$
 DELIMITER ;
 
 -- 3. Get Member Statistics
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_get_member_stats(
     IN p_member_id INT,
     OUT p_total_checkins INT,
@@ -143,11 +166,11 @@ BEGIN
     -- Get days until expiry
     SELECT DATEDIFF(date_expiry, CURDATE()) INTO p_days_until_expiry
     FROM members WHERE id = p_member_id;
-END //
+END$$
 DELIMITER ;
 
 -- 4. Update Member Status Based on Expiry
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_update_member_statuses()
 BEGIN
     -- Update expired members
@@ -157,11 +180,11 @@ BEGIN
     
     -- Return count of updated members
     SELECT ROW_COUNT() as updated_count;
-END //
+END$$
 DELIMITER ;
 
 -- 5. Get Revenue Report by Date Range
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_revenue_report(
     IN p_date_from DATE,
     IN p_date_to DATE
@@ -176,11 +199,11 @@ BEGIN
     WHERE payment_date BETWEEN p_date_from AND p_date_to
     GROUP BY DATE(payment_date), payment_method
     ORDER BY date DESC, payment_method;
-END //
+END$$
 DELIMITER ;
 
 -- 6. Get Attendance Report by Date Range
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_attendance_report(
     IN p_date_from DATE,
     IN p_date_to DATE
@@ -196,11 +219,11 @@ BEGIN
     WHERE a.check_in_date BETWEEN p_date_from AND p_date_to
     GROUP BY a.check_in_date
     ORDER BY a.check_in_date DESC;
-END //
+END$$
 DELIMITER ;
 
 -- 7. Get Expiring Memberships
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_get_expiring_memberships(
     IN p_days_ahead INT
 )
@@ -217,11 +240,11 @@ BEGIN
     WHERE status = 'Active'
     AND date_expiry BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL p_days_ahead DAY)
     ORDER BY date_expiry ASC;
-END //
+END$$
 DELIMITER ;
 
 -- 8. Renew Member Membership
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_renew_membership(
     IN p_member_id INT,
     IN p_duration VARCHAR(20),
@@ -266,11 +289,11 @@ BEGIN
         SET p_new_expiry = v_new_expiry;
         SET p_status = 'SUCCESS: Membership renewed';
     END IF;
-END //
+END$$
 DELIMITER ;
 
 -- 9. Get Top Active Members
-DELIMITER //
+DELIMITER $$
 CREATE PROCEDURE sp_get_top_members(
     IN p_limit INT,
     IN p_date_from DATE,
@@ -290,7 +313,7 @@ BEGIN
     GROUP BY m.id
     ORDER BY checkin_count DESC
     LIMIT p_limit;
-END //
+END$$
 DELIMITER ;
 
 -- ============================================================
@@ -298,7 +321,7 @@ DELIMITER ;
 -- ============================================================
 
 -- 1. Before Insert Member - Validate Data
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_insert_member
 BEFORE INSERT ON members
 FOR EACH ROW
@@ -323,11 +346,11 @@ BEGIN
     
     -- Set created_at timestamp
     SET NEW.created_at = NOW();
-END //
+END$$
 DELIMITER ;
 
 -- 2. After Insert Member - Log Activity and Update Metrics
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_after_insert_member
 AFTER INSERT ON members
 FOR EACH ROW
@@ -361,11 +384,11 @@ BEGIN
     -- Set session variables for tracking
     SET @last_member_id = NEW.id;
     SET @last_action = 'MEMBER_CREATED';
-END //
+END$$
 DELIMITER ;
 
 -- 3. Before Update Member - Auto-Update Status
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_update_member
 BEFORE UPDATE ON members
 FOR EACH ROW
@@ -382,11 +405,11 @@ BEGIN
         SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'Amount must be greater than zero';
     END IF;
-END //
+END$$
 DELIMITER ;
 
 -- 4. After Insert Payment - Update Business Metrics
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_after_insert_payment
 AFTER INSERT ON payments
 FOR EACH ROW
@@ -446,11 +469,11 @@ BEGIN
         daily_transactions = v_today_transactions,
         monthly_transactions = v_month_transactions,
         last_updated = NOW();
-END //
+END$$
 DELIMITER ;
 
 -- 5. Before Insert Attendance - Validate Check-in
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_insert_attendance
 BEFORE INSERT ON attendance
 FOR EACH ROW
@@ -477,11 +500,11 @@ BEGIN
     
     -- Set created_at timestamp
     SET NEW.created_at = NOW();
-END //
+END$$
 DELIMITER ;
 
 -- 6. After Insert Attendance - Track Last Activity
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_after_insert_attendance
 AFTER INSERT ON attendance
 FOR EACH ROW
@@ -519,11 +542,11 @@ BEGIN
     -- Set session variables for tracking
     SET @last_checkin_member = NEW.member_id;
     SET @last_checkin_date = NEW.check_in_date;
-END //
+END$$
 DELIMITER ;
 
 -- 7. Before Insert Payment - Validate Payment
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_insert_payment
 BEFORE INSERT ON payments
 FOR EACH ROW
@@ -555,11 +578,11 @@ BEGIN
     
     -- Set created_at timestamp
     SET NEW.created_at = NOW();
-END //
+END$$
 DELIMITER ;
 
 -- 8. Before Update Inventory - Validate Stock
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_update_inventory
 BEFORE UPDATE ON inventory
 FOR EACH ROW
@@ -580,11 +603,11 @@ BEGIN
     IF NEW.quantity < 5 AND OLD.quantity >= 5 THEN
         SET @low_stock_alert = CONCAT('Low stock alert: ', NEW.item_name);
     END IF;
-END //
+END$$
 DELIMITER ;
 
 -- 9. Before Insert Announcement - Validate Dates
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER trg_before_insert_announcement
 BEFORE INSERT ON announcements
 FOR EACH ROW
@@ -602,7 +625,7 @@ BEGIN
     
     -- Set created_at timestamp
     SET NEW.created_at = NOW();
-END //
+END$$
 DELIMITER ;
 
 -- ============================================================

@@ -11,10 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['member_id'])) {
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $member_id);
     
-    if (mysqli_stmt_execute($stmt)) {
-        redirect('../manage-member.php?success=Member deleted successfully');
-    } else {
-        redirect('../manage-member.php?error=Failed to delete member');
+    try {
+        if (mysqli_stmt_execute($stmt)) {
+            redirect('../manage-member.php?success=Member deleted successfully');
+        } else {
+            // Get the MySQL error message (includes trigger errors)
+            $error_message = mysqli_error($conn);
+            redirect('../manage-member.php?error=' . urlencode($error_message));
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Catch trigger errors thrown as exceptions
+        redirect('../manage-member.php?error=' . urlencode($e->getMessage()));
     }
 } else {
     redirect('../manage-member.php');

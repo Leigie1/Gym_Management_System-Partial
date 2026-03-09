@@ -13,6 +13,9 @@ A complete gym management system built with PHP and MySQL featuring member manag
 - 📢 **Announcements** - Create and manage gym announcements
 - 💬 **Feedback System** - Collect and view member feedback
 - 🔍 **Member Status** - View detailed member profiles and membership cards
+- 📈 **Business Metrics** - Real-time analytics with automatic tracking
+- 🔧 **Database Triggers** - Automatic validation and data integrity (9 triggers)
+- 🎯 **Stored Procedures** - Optimized database operations (9 procedures)
 
 ## Tech Stack
 
@@ -24,14 +27,31 @@ A complete gym management system built with PHP and MySQL featuring member manag
 
 ## Documentation
 
+### Getting Started
 - **README.md** - This file (overview and features)
 - **INSTALLATION.md** - Step-by-step setup guide
 - **TROUBLESHOOTING.md** - Common issues and solutions
 - **CHANGELOG.md** - Version history and updates
+
+### Project Documentation
 - **PROJECT_SUMMARY.md** - Complete project documentation
+- **PROJECT_COMPLETE.md** - Final project status
+
+### QR Code System
 - **QUICK_START_QR.md** - Quick start guide for QR system
 - **QR_USAGE_GUIDE.md** - Complete QR code user guide
 - **QR_IMPLEMENTATION_SUMMARY.md** - Technical QR implementation details
+
+### Database Triggers & Procedures
+- **DATABASE_TRIGGERS_PROCEDURES_DOCUMENTATION.md** - Complete trigger/procedure documentation
+- **TRIGGER_ERROR_HANDLING.md** - Error handling guide
+- **QUICK_REFERENCE_TRIGGERS.md** - Quick reference for developers
+- **TRIGGER_INTEGRATION_SUMMARY.md** - Integration summary
+- **BUSINESS_METRICS_TABLE_GUIDE.md** - Business metrics guide
+- **TRIGGERS_PROCEDURES_IMPACT_ANALYSIS.md** - Impact analysis
+
+### Database Management
+- **DATABASE_RESET_GUIDE.md** - How to reset database
 
 ## Installation
 

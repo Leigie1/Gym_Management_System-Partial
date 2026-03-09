@@ -217,6 +217,14 @@ $members_result = mysqli_query($conn, $members_query);
           });
       </script>";
   }
+  if (isset($_GET['error'])) {
+      $error_msg = htmlspecialchars($_GET['error']);
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              alert('Error: " . addslashes($error_msg) . "');
+          });
+      </script>";
+  }
   ?>
 
   <script>

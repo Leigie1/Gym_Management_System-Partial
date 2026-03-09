@@ -112,5 +112,21 @@ $announcements_result = mysqli_query($conn, $announcements_query);
       </div>
     </div>
   </main>
+
+  <?php
+  // Show success/error messages
+  if (isset($_GET['success'])) {
+      $success_msg = htmlspecialchars($_GET['success']);
+      echo "<script>
+          alert('Success: " . addslashes($success_msg) . "');
+      </script>";
+  }
+  if (isset($_GET['error'])) {
+      $error_msg = htmlspecialchars($_GET['error']);
+      echo "<script>
+          alert('Error: " . addslashes($error_msg) . "');
+      </script>";
+  }
+  ?>
 </body>
 </html>

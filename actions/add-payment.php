@@ -19,10 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "isidsss", $member_id, $category, $quantity, $amount, $payment_method, $payment_date, $status);
     
-    if (mysqli_stmt_execute($stmt)) {
-        redirect('../payment.php?success=Payment recorded successfully!');
-    } else {
-        redirect('../payment.php?error=Failed to record payment');
+    try {
+        if (mysqli_stmt_execute($stmt)) {
+            redirect('../payment.php?success=Payment recorded successfully!');
+        } else {
+            // Get the MySQL error message (includes trigger errors)
+            $error_message = mysqli_error($conn);
+            redirect('../payment.php?error=' . urlencode($error_message));
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Catch trigger errors thrown as exceptions
+        redirect('../payment.php?error=' . urlencode($e->getMessage()));
     }
 } else {
     redirect('../payment.php');

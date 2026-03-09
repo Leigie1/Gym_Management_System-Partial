@@ -13,10 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "ssid", $item_name, $category, $quantity, $price);
     
-    if (mysqli_stmt_execute($stmt)) {
-        redirect('../inventory.php?success=Item added successfully');
-    } else {
-        redirect('../inventory.php?error=Failed to add item');
+    try {
+        if (mysqli_stmt_execute($stmt)) {
+            redirect('../inventory.php?success=Item added successfully');
+        } else {
+            // Get the MySQL error message (includes trigger errors)
+            $error_message = mysqli_error($conn);
+            redirect('../inventory.php?error=' . urlencode($error_message));
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Catch trigger errors thrown as exceptions
+        redirect('../inventory.php?error=' . urlencode($e->getMessage()));
     }
 } else {
     redirect('../inventory.php');
